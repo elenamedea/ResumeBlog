@@ -1,0 +1,131 @@
+/* style.css */
+/* Base styles matching your theme.toml */
+html, body, [class*="css"] {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f7f4f5;
+    color: #0a0a0a;
+}
+
+/* Headers with primary color */
+h1, h2, h3 {
+    color: #d891ef;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #f9edfd;
+    padding-bottom: 0.3rem;
+}
+
+/* Main content area */
+.stApp {
+    background-color: #f7f4f5;
+}
+
+/* Columns layout */
+.st-cm {
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Expanders with secondary background */
+.st-emotion-cache-1h9us2l {
+    background-color: #f9edfd;
+    border: 1px solid #d891ef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.st-emotion-cache-1h9us2l:hover {
+    box-shadow: 0 2px 6px rgba(216, 145, 239, 0.2);
+}
+
+/* Links */
+a {
+    color: #d891ef;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #c472e6;
+    text-decoration: underline;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+    background-color: #f9edfd;
+    padding: 1rem;
+    border-right: 2px solid #d891ef;
+}
+
+/* Radio buttons */
+.st-bm {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    background-color: #f9edfd;
+    border-radius: 6px;
+}
+
+.st-bm:hover {
+    background-color: #f3dafb;
+}
+
+/* Input fields */
+.stTextInput>div>div>input,
+.stTextArea>div>textarea {
+    background-color: #f9edfd;
+    border-color: #d891ef;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #d891ef;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.stButton>button:hover {
+    background-color: #c472e6;
+    color: #ffffff;
+}
+
+/* Code blocks */
+.stCodeBlock {
+    background-color: #f9edfd;
+    border-radius: 8px;
+    border: 1px solid #d891ef;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .st-cm {
+        flex-direction: column;
+    }
+    
+    [data-testid="stSidebar"] {
+        width: 100% !important;
+        border-right: none;
+        border-bottom: 2px solid #d891ef;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Profile image styling */
+.stImage>img {
+    border: 3px solid #d891ef;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(216, 145, 239, 0.1);
+}
+
+/* Markdown text styling */
+.stMarkdown {
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.stMarkdown strong {
+    color: #d891ef;
+}
