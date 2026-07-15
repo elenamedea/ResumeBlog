@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Secrets — tokens live in the deployment platform's secret store, never here
+.env
+.streamlit/secrets.toml
+
+# OS / editor
+.DS_Store
+.vscode/

@@ -13,13 +13,6 @@ from utils import profile_dict, contact_dict, work_experience_dict, achievements
 # Language selection
 lang = "Deutsch"
 
-# CSS styling
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-local_css("./style.css")
-
 # Title, caption, and tabs with useful links
 contact = contact_dict[lang]
 

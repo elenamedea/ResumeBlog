@@ -1,0 +1,23 @@
+# Production parity: immutable image, no source mounts.
+# Usage: docker compose -f docker-compose.prod.yml up --build -d
+# Note: the reference deployment is a Hugging Face Docker Space, which
+# builds the Dockerfile directly; this file is for self-hosting parity tests.
+services:
+  resumeblog:
+    build: .
+    ports:
+      - "${APP_PORT:-7860}:7860"
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7860/_stcore/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

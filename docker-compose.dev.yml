@@ -1,0 +1,20 @@
+# Local development: source mounted for hot reload, Streamlit re-runs on save.
+# Usage: docker compose -f docker-compose.dev.yml up --build
+services:
+  resumeblog:
+    build: .
+    ports:
+      - "${APP_PORT:-7860}:7860"
+    environment:
+      - STREAMLIT_SERVER_RUN_ON_SAVE=true
+    # Selective mounts keep the image's .venv intact
+    volumes:
+      - ./app.py:/home/user/app/app.py
+      - ./style.css:/home/user/app/style.css
+      - ./pages:/home/user/app/pages
+      - ./utils:/home/user/app/utils
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7860/_stcore/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

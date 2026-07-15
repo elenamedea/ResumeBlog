@@ -1,10 +1,10 @@
 # General app details
 app_title = "The title of your app (*e.g.*, Your name)"
-app_icon = "your app's icon"
+# Must be a single emoji character (Streamlit validates it) — swap for your own
+app_icon = "🪴"
 
-# Intro page 
+# Intro page
 badge_name = "**Subtitle of the Intro Streamlit page, Here it is recommended to use your name**"
-badge_icon = "your badge's icon"
 
 latest_project_link = "https://example.com"
 
