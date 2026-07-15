@@ -129,3 +129,11 @@ a:hover {
 .stMarkdown strong {
     color: #d891ef;
 }
+
+/* Print: hide the sidebar so the CV prints clean */
+@media print {
+    .stSidebar,
+    [data-testid="stSidebar"] {
+        display: none;
+    }
+}
