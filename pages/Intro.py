@@ -11,7 +11,7 @@ st.badge(badge_name, color = "primary")
 
 # App summary
 md("""
-Hello, and thank you for visiting!  
+Hello and thank you for visiting!  
 This website presents my professional journey, in an interactive way.  
 
 You can explore my **Curriculum Vitae** and **Contact details** in your preferred language:
