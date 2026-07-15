@@ -1,73 +1,67 @@
-# Your resume website multipage streamlit app
+---
+title: ResumeBlog
+emoji: 🪴
+colorFrom: red
+colorTo: pink
+sdk: docker
+app_port: 7860
+pinned: true
+---
+
+# Your resume website as a Streamlit multipage app
 
 🪴 **Welcome to ResumeBlog, a resume website template** 🪴
 
-The current repository is an implementation of a Curriculum Vitae Streamlit multipage app, containing an English and a German version.
+This repository implements a Curriculum Vitae Streamlit multipage app with an English and a German version, packaged as a Docker image that deploys to a [Hugging Face Space](https://huggingface.co/spaces) via GitHub Actions — every push to `main` rebuilds and redeploys the site.
 
-In order to create your website, you can fork the current repo and fill the [dictionaries](utils/context_dictionaries.py) and [strings](utils/context_strings.py) files with your personal information.
+To create your own website, fork this repo and fill the [dictionaries](utils/context_dictionaries.py) and [strings](utils/context_strings.py) files with your personal information.
 
-📌 For hosting the Streamlit multipage app, you can sync your GitHub repository with a Hugging Face Space. For this process, check [here](https://huggingface.co/docs/hub/en/spaces-github-actions) the original source. 🔗
-
----
-
-## Hugging Face Spaces
-
-You can visit Hugging Face Spaces and create an account, by clicking on [here](https://huggingface.co/spaces). 🔗
+> The YAML block at the very top of this file is the [Space configuration](https://huggingface.co/docs/hub/spaces-config-reference); GitHub renders it as a small table, so it does not hurt the repo's README.
 
 ---
 
-Except for Hugging Face Spaces, Docker is utilized for containerization and app deployment.
+## Local development with uv
 
-## How to setup the ResumeBlog environment with Conda and VsCode
+[uv](https://docs.astral.sh/uv/) manages the environment; `pyproject.toml` + `uv.lock` are the source of truth.
 
-### Prerequisites
+- [Install uv](https://docs.astral.sh/uv/getting-started/installation/) 🔗
+- `uv sync` — creates `.venv/` with locked dependencies
+- `uv run streamlit run app.py` — starts the app on http://localhost:8501
+- In VS Code: Command Palette → `Python: Select Interpreter` → pick `.venv`
 
-- Install [miniconda](https://docs.conda.io/projects/miniconda/en/latest/) 🔗
-- `conda init --all`
-- `conda env create -f environment.yml`
-- `conda activate ResumeBlog` (on OSX you need to `conda deactivate` before this command)
-- Set python interpreter for the VsCode Workspace
-    - Open VsCode View Menu > Command Palette (Cmd/Ctrl + Shift + P)
-    - Search and select `Python: Select Interpreter`
-    - Select the options that contains `ResumeBlog`
-- Add [Jupyter extention](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) 🔗 to VsCode
+Adding or removing a package:
 
-### Common tasks
-
-When working in the terminal, use `conda activate ResumeBlog` (on OSX you need to `conda deactivate` before this command).
-
-When working in a Jupyter Notebook, do the following once per Notebook (in case you don't, possibly you will be asked about it on the first attempt to run any code block in that Nodebook)
-- Open VsCode View Menu > Command Palette (Cmd/Ctrl + Shift + P)
-- Search and select `Notebook: Select Notebook Kernel`
-- Select the options that contains `ResumeBlog`
-
-When [adding](https://anaconda.org/search?q=jupyter) 🔗 or removing a package
-- Modify `environment.yml` accordingly (don't forget to update channels as needed)
-- `conda env update --file environment.yml --prune`
-- Also `conda env export --from-history` can be used to get a partially incorrect `environment.yml` of the current environment 
-    - Beware that this command does not include `channels` in the generated `environment.yml`
-    - Beware that this command includes `prefix` which should not be stored in `environment.yml`, as it changes from one machine to another
-    - [Here is the related issue](https://github.com/conda/conda/issues/12842) 🔗 on the official repo
+- `uv add <package>` / `uv remove <package>` — updates `pyproject.toml` and `uv.lock` together
+- Commit both files; never edit `uv.lock` by hand
 
 ---
 
-### Running with local services
+## Running with Docker
 
-- Code execution in Jupyter Notebooks should work as expected
-- Start Streamlit with `python -m streamlit run ./app.py` (don't forget to deactivate conda base env before activating conda `ResumeBlog`)
+Two compose files, one image:
+
+- **Development** (hot reload, source mounted):
+  `docker compose -f docker-compose.dev.yml up --build`
+- **Production parity** (immutable image, restart policy):
+  `docker compose -f docker-compose.prod.yml up --build -d`
+
+Both serve on http://localhost:7860. Copy `.env.example` to `.env` for optional settings; `.env` is git-ignored and never committed.
 
 ---
 
-### Deploying Streamlit using Docker
+## Deploying to a Hugging Face Space
 
-####  Docker Prerequisites
+1. [Create a Space](https://huggingface.co/new-space) → SDK **Docker**.
+2. Create a **write** token: HF Settings → Access Tokens.
+3. In your GitHub repo (Settings → Secrets and variables → Actions) set:
+   - secret `HF_TOKEN` — the write token,
+   - variables `HF_USERNAME` and `HF_SPACE_NAME` — your Space coordinates.
+4. Push to `main`: the [sync workflow](.github/workflows/sync-to-hf.yml) force-pushes to the Space, which builds the Dockerfile and serves the app on port 7860. Watch the first build in the Space's **Logs** tab.
 
-- [Install Docker Engine](https://docs.streamlit.io/deploy/tutorials/docker#install-docker-engine) 🔗
-- [Check network port accessibility](https://docs.streamlit.io/deploy/tutorials/docker#check-network-port-accessibility) 🔗
+Reference on the GitHub ↔ Space sync: [Hugging Face docs](https://huggingface.co/docs/hub/en/spaces-github-actions) 🔗
 
-#### Running with docker compose
+---
 
-- `docker compose build`
-- `docker compose up -d`
-- Visit http://localhost for Streamlit multipage app
+## Observability (optional)
 
+The app is instrumented with [Pydantic Logfire](https://logfire.pydantic.dev/): page views are traced with the page title as a span attribute. It activates only when a `LOGFIRE_TOKEN` environment variable is present (set it as a Space secret on HF, or in `.env` when self-hosting). Without the token the instrumentation is a silent no-op — no Logfire account required.

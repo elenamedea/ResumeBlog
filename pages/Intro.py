@@ -2,12 +2,12 @@ import streamlit as st
 
 from utils import print_markdown as md
 
-from utils import badge_name, badge_icon, latest_project_link
+from utils import badge_name, latest_project_link
 
-# Title 
+# Title
 st.title("🪴 Welcome to my resume website 🪴")
 # Name badge
-st.badge(badge_name, icon = badge_icon, color = "primary")
+st.badge(badge_name, color = "primary")
 
 # App summary
 md("""
@@ -20,7 +20,7 @@ You can explore my **Curriculum Vitae** and **Contact details** in your preferre
 - 🌐 [**German**](CV_de) section
 
 Simply select your preferred language above or use the navigation menu on the left to switch 
-between sections. 😃
+between sections.
 """)
 st.divider()
 

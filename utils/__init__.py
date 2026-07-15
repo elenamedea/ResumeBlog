@@ -8,7 +8,7 @@ from .title_caption_links import title_caption_links
 # To be imported to app.py 
 from .context_strings import app_title, app_icon
 # To be imported to Intro.py
-from .context_strings import badge_name, badge_icon, latest_project_link
+from .context_strings import badge_name, latest_project_link
 # To be imported to contact python scripts
 from .context_strings import contact_title, calendly_link
 # To be imported to CV python scripts
