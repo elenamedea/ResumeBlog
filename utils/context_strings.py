@@ -10,7 +10,7 @@ latest_project_link = "https://example.com"
 
 # Contact pages
 contact_title = "Title of the Contact Streamlit page, Here it is recommended to use your name"
-calendly_link = "https://calendly.com/elesyng/30min"
+calendly_link = "https://calendly.com"
 
 # CV pages
 ## Title, caption, and tabs with useful links
