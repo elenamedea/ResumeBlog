@@ -13,7 +13,7 @@ To create your own website, fork this repo and fill the [dictionaries](utils/con
 [uv](https://docs.astral.sh/uv/) manages the environment; `pyproject.toml` + `uv.lock` are the source of truth.
 
 - [Install uv](https://docs.astral.sh/uv/getting-started/installation/) 🔗
-- `uv sync` — creates `.venv/` with locked dependencies
+- `uv sync` - creates `.venv/` with locked dependencies
 - `uv run streamlit run app.py` - starts the app on http://localhost:8501
 - In VS Code: Command Palette → `Python: Select Interpreter` → pick `.venv`
 
