@@ -13,7 +13,7 @@ from utils import profile_dict, contact_dict, work_experience_dict, achievements
 # Language selection
 lang = "Deutsch"
 
-# Title, caption, and tabs with useful links
+# Title, caption, and row of useful links
 contact = contact_dict[lang]
 
 app_intro(name, 
@@ -23,7 +23,7 @@ app_intro(name,
           f"""https://www.{contact["details"]["linkedin"]}""", "💼", 
           f"""https://{contact["details"]["github"]}""", "💻", 
           f"""https://www.{contact["details"]["publications"]}""", "📄",
-          tab3 = "Publikationen")
+          button3 = "Publikationen")
 
 # App summary
 profile = profile_dict[lang]

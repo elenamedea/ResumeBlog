@@ -4,6 +4,7 @@ import logfire
 import streamlit as st
 
 from utils import app_title, app_icon
+from utils import LIGHT, DARK, css_variables
 
 # Page config — must be the first Streamlit command (streamlit >= 1.45)
 st.set_page_config(
@@ -22,9 +23,15 @@ def configure_logfire():
 
 configure_logfire()
 
-# CSS styling, shared by every page; path is robust to the working directory
+# Theme toggle: light by default, dark on demand (persists for the session)
+dark_mode = st.sidebar.toggle("🌙 Dark mode", key = "dark_mode")
+theme = DARK if dark_mode else LIGHT
+
+# CSS styling, shared by every page; path is robust to the working directory.
+# The active palette is injected as CSS custom properties ahead of the
+# stylesheet, so style.css stays color-agnostic.
 css = (Path(__file__).parent / "style.css").read_text()
-st.markdown(f"<style>{css}</style>", unsafe_allow_html = True)
+st.markdown(f"<style>{css_variables(theme)}{css}</style>", unsafe_allow_html = True)
 
 # Intro section
 intro_page = st.Page("./pages/Intro.py", title = "Welcome!", icon = "🪴")
