@@ -13,7 +13,7 @@ from utils import profile_dict, contact_dict, work_experience_dict, achievements
 # Language selection
 lang = "English"
 
-# Title, caption, and tabs with useful links
+# Title, caption, and row of useful links
 contact = contact_dict[lang]
 
 app_intro(name, 
