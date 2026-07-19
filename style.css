@@ -1,22 +1,41 @@
 /* style.css */
-/* Base styles matching your theme.toml */
+/* Colors come from the CSS custom properties injected by app.py — the
+   active palette (light or dark) is defined in utils/themes.py. */
 html, body, [class*="css"] {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #f7f4f5;
-    color: #0a0a0a;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
-/* Headers with primary color */
+/* Headers with accent color */
 h1, h2, h3 {
-    color: #d891ef;
+    color: var(--accent);
     margin-bottom: 0.75rem;
-    border-bottom: 2px solid #f9edfd;
+    border-bottom: 2px solid var(--bg-secondary);
     padding-bottom: 0.3rem;
 }
 
 /* Main content area */
 .stApp {
-    background-color: #f7f4f5;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+.stApp p,
+.stApp li,
+.stApp label {
+    color: var(--text);
+}
+
+/* Top toolbar */
+[data-testid="stHeader"] {
+    background-color: var(--bg);
+}
+
+/* Captions (muted text) */
+[data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] p {
+    color: var(--text-muted);
 }
 
 /* Columns layout */
@@ -26,74 +45,97 @@ h1, h2, h3 {
 }
 
 /* Expanders with secondary background */
+[data-testid="stExpander"] details,
 .st-emotion-cache-1h9us2l {
-    background-color: #f9edfd;
-    border: 1px solid #d891ef;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--brand);
     border-radius: 8px;
     margin-bottom: 1rem;
 }
 
+[data-testid="stExpander"] details:hover,
 .st-emotion-cache-1h9us2l:hover {
-    box-shadow: 0 2px 6px rgba(216, 145, 239, 0.2);
+    box-shadow: 0 2px 6px var(--shadow);
 }
 
 /* Links */
 a {
-    color: #d891ef;
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #c472e6;
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
 /* Sidebar styling */
 [data-testid="stSidebar"] {
-    background-color: #f9edfd;
+    background-color: var(--bg-secondary);
     padding: 1rem;
-    border-right: 2px solid #d891ef;
+    border-right: 2px solid var(--brand);
+}
+
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] p {
+    color: var(--text);
 }
 
 /* Radio buttons */
 .st-bm {
     padding: 0.5rem 1rem;
     margin: 0.25rem 0;
-    background-color: #f9edfd;
+    background-color: var(--bg-secondary);
     border-radius: 6px;
 }
 
 .st-bm:hover {
-    background-color: #f3dafb;
+    background-color: var(--bg-secondary-hover);
 }
 
 /* Input fields */
 .stTextInput>div>div>input,
 .stTextArea>div>textarea {
-    background-color: #f9edfd;
-    border-color: #d891ef;
+    background-color: var(--bg-secondary);
+    border-color: var(--brand);
+    color: var(--text);
 }
 
 /* Buttons */
 .stButton>button {
-    background-color: #d891ef;
-    color: #0a0a0a;
+    background-color: var(--brand);
+    color: var(--btn-text);
     border: none;
     border-radius: 6px;
     font-weight: bold;
 }
 
 .stButton>button:hover {
-    background-color: #c472e6;
-    color: #ffffff;
+    background-color: var(--brand-hover);
+    color: var(--btn-text-hover);
+}
+
+/* Link buttons (title row) */
+.stLinkButton a {
+    background-color: var(--brand);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.stLinkButton a:hover {
+    background-color: var(--brand-hover);
+    color: var(--btn-text-hover);
+    text-decoration: none;
 }
 
 /* Code blocks */
 .stCodeBlock {
-    background-color: #f9edfd;
+    background-color: var(--bg-secondary);
     border-radius: 8px;
-    border: 1px solid #d891ef;
+    border: 1px solid var(--brand);
 }
 
 /* Responsive design */
@@ -101,13 +143,13 @@ a:hover {
     .st-cm {
         flex-direction: column;
     }
-    
+
     [data-testid="stSidebar"] {
         width: 100% !important;
         border-right: none;
-        border-bottom: 2px solid #d891ef;
+        border-bottom: 2px solid var(--brand);
     }
-    
+
     h1 {
         font-size: 1.8rem;
     }
@@ -115,9 +157,9 @@ a:hover {
 
 /* Profile image styling */
 .stImage>img {
-    border: 3px solid #d891ef;
+    border: 3px solid var(--brand);
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(216, 145, 239, 0.1);
+    box-shadow: 0 4px 6px var(--shadow);
 }
 
 /* Markdown text styling */
@@ -127,7 +169,7 @@ a:hover {
 }
 
 .stMarkdown strong {
-    color: #d891ef;
+    color: var(--accent);
 }
 
 /* Print: hide the sidebar so the CV prints clean */
